@@ -16,6 +16,5 @@
     "noEmit": true,
     "jsx": "react-jsx"
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "./jest.setup.js"],
-  "exclude": ["node_modules"]
+  "include": ["src"]
 }
