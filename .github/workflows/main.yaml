@@ -36,7 +36,7 @@ jobs:
             # Clean up resources
             docker system prune -af
 
-            # Pull latest
+            # Pull latest from github repo
             cd /home/opc/obs-solution/
             git pull origin master
 
