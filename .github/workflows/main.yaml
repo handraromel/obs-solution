@@ -1,10 +1,8 @@
 name: CI/CD Pipeline
 on: push
-
 jobs:
   build:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -18,13 +16,14 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      - name: Clean up Docker resources
-        run: docker system prune -af --volumes
-
       - name: Build and push Docker images
         run: |
-          docker compose build
-          docker compose push
+          docker buildx create --use
+          docker buildx build \
+            --push \
+            --cache-from=type=registry,ref=myapp:cache \
+            --cache-to=type=inline \
+            --tag ${{ secrets.DOCKERHUB_USERNAME }}/myapp:latest .
 
       - name: Deploy to server
         uses: appleboy/ssh-action@master
@@ -34,31 +33,11 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           passphrase: ${{ secrets.SSH_PASSPHRASE }}
           script: |
-            echo "SSH connection test successful"
-
             cd /home/opc/obs-solution/
             git pull origin master
-
-            # Pull and start containers
-            docker system prune -af --volumes
             docker compose pull
             docker compose up -d --build
-
-            # Check if containers are running
-            if ! docker compose ps | grep -q "Up"; then
-              echo "Error: Some containers failed to start"
-              docker compose logs
-              exit 1
-            fi
-
-      - name: Verify deployment
-        uses: appleboy/ssh-action@master
-        with:
-          host: ${{ secrets.SSH_HOST }}
-          username: ${{ secrets.SSH_USERNAME }}
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
-          passphrase: ${{ secrets.SSH_PASSPHRASE }}
-          script: |
-            cd /home/opc/obs-solution/
+            # Clean up unused Docker resources to save space
+            docker system prune -af
             docker compose ps
             docker compose logs --tail=50

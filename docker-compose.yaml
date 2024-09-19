@@ -6,8 +6,8 @@ services:
     ports:
       - "3001:3001"
     networks:
-      - savory_script_network
+      - obs_solution_network
 
 networks:
-  savory_script_network:
+  obs_solution_network:
     driver: bridge
