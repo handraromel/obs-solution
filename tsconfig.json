@@ -14,8 +14,8 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-    "jsx": "react-jsx",
-    "types": ["node", "jest", "@testing-library/jest-dom"]
+    "jsx": "react-jsx"
   },
-  "include": ["src"]
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "./jest.setup.js"],
+  "exclude": ["node_modules"]
 }
