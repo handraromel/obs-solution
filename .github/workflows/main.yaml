@@ -21,9 +21,9 @@ jobs:
           docker buildx create --use
           docker buildx build \
             --push \
-            --cache-from=type=registry,ref=myapp:cache \
+            --cache-from=type=registry,ref=obs-app:cache \
             --cache-to=type=inline \
-            --tag ${{ secrets.DOCKERHUB_USERNAME }}/myapp:latest .
+            --tag ${{ secrets.DOCKERHUB_USERNAME }}/obs-app:latest .
 
       - name: Deploy to server
         uses: appleboy/ssh-action@master
@@ -33,11 +33,31 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           passphrase: ${{ secrets.SSH_PASSPHRASE }}
           script: |
+            # Clean up resources
+            docker system prune -af
+
+            # Pull latest
             cd /home/opc/obs-solution/
             git pull origin master
+
+            # Pull updated images and deploy
             docker compose pull
             docker compose up -d --build
-            # Clean up unused Docker resources to save space
-            docker system prune -af
+
+            # Check if containers are running
+            if ! docker compose ps | grep -q "Up"; then
+              echo "Error: Some containers failed to start"
+              docker compose logs
+              exit 1
+
+      - name: Verify deployment
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USERNAME }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          passphrase: ${{ secrets.SSH_PASSPHRASE }}
+          script: |
+            cd /home/opc/obs-solution/
             docker compose ps
             docker compose logs --tail=50
