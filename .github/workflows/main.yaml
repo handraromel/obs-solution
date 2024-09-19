@@ -49,6 +49,7 @@ jobs:
               echo "Error: Some containers failed to start"
               docker compose logs
               exit 1
+            fi
 
       - name: Verify deployment
         uses: appleboy/ssh-action@master
