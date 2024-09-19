@@ -1,0 +1,15 @@
+version: "3.8"
+
+services:
+  frontend:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    ports:
+      - "3001:3001"
+    networks:
+      - savory_script_network
+
+networks:
+  savory_script_network:
+    driver: bridge
