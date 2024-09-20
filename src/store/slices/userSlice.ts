@@ -6,12 +6,14 @@ interface UserState {
   users: User[];
   loading: boolean;
   error: string | null;
+  lastUpdated: number;
 }
 
 const initialState: UserState = {
   users: [],
   loading: false,
   error: null,
+  lastUpdated: Date.now(),
 };
 
 export const fetchUsers = createAsyncThunk("users/fetchUsers", async () => {
@@ -62,14 +64,10 @@ const userSlice = createSlice({
         state.loading = false;
         state.error = action.error.message || null;
       })
-      .addCase(addUser.fulfilled, (state, action: PayloadAction<User>) => {
-        const existingUserIndex = state.users.findIndex(
-          (user) => user.id === action.payload.id
-        );
-        if (existingUserIndex !== -1) {
-          state.users[existingUserIndex] = action.payload;
-        } else {
+      .addCase(addUser.fulfilled, (state, action) => {
+        if (!state.users.some((user) => user.id === action.payload.id)) {
           state.users.push(action.payload);
+          state.lastUpdated = Date.now(); // Add this line
         }
       })
       .addCase(updateUser.fulfilled, (state, action) => {
@@ -78,10 +76,12 @@ const userSlice = createSlice({
         );
         if (index !== -1) {
           state.users[index] = action.payload;
+          state.lastUpdated = Date.now(); // Add this line
         }
       })
       .addCase(deleteUser.fulfilled, (state, action) => {
         state.users = state.users.filter((user) => user.id !== action.payload);
+        state.lastUpdated = Date.now(); // Add this line
       });
   },
 });

@@ -18,9 +18,13 @@ const UserSubmission: React.FC = () => {
     setIsModalOpen(false);
   };
 
-  const handleSubmit = (user: User) => {
-    dispatch(addUser(user));
-    handleCloseModal();
+  const handleSubmit = async (user: User) => {
+    try {
+      await dispatch(addUser(user)).unwrap();
+      handleCloseModal();
+    } catch (error) {
+      console.error("Failed to add user:", error);
+    }
   };
 
   return (

@@ -20,7 +20,7 @@ import { UserAction, UserDetails, UserSubmission, UserDelete } from ".";
 
 const UserList: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
-  const { users, loading, error } = useSelector(
+  const { users, loading, error, lastUpdated } = useSelector(
     (state: RootState) => state.users
   );
 
@@ -31,7 +31,7 @@ const UserList: React.FC = () => {
 
   useEffect(() => {
     dispatch(fetchUsers());
-  }, [dispatch]);
+  }, [dispatch, lastUpdated]);
 
   const handleEdit = (user: User) => {
     setSelectedUser(user);
@@ -127,7 +127,7 @@ const UserList: React.FC = () => {
                       <Button
                         variant="outlined"
                         color="primary"
-                        sx={{ mr: 1 }}
+                        sx={{ m: 1 }}
                         onClick={() => handleDetails(user)}
                       >
                         Details
@@ -135,7 +135,7 @@ const UserList: React.FC = () => {
                       <Button
                         variant="outlined"
                         color="secondary"
-                        sx={{ mr: 1 }}
+                        sx={{ m: 1 }}
                         onClick={() => handleEdit(user)}
                       >
                         Edit
@@ -143,7 +143,7 @@ const UserList: React.FC = () => {
                       <Button
                         variant="outlined"
                         color="error"
-                        sx={{ mr: 1 }}
+                        sx={{ m: 1 }}
                         onClick={() => handleDeletePrompt(user)}
                       >
                         Delete
