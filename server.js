@@ -5,7 +5,7 @@ const path = require("path");
 const cors = require("cors");
 
 const app = express();
-const PORT = 3002;
+const PORT = 30002;
 const USERS_FILE = path.join(__dirname, "public", "users.json");
 
 app.use(cors());
@@ -42,6 +42,7 @@ const writeUsers = async (users) => {
 };
 
 app.get("/api/users", readUsers, (req, res) => {
+  res.json(PORT);
   res.json(req.users);
 });
 
