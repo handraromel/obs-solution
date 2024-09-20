@@ -42,7 +42,6 @@ const writeUsers = async (users) => {
 };
 
 app.get("/api/users", readUsers, (req, res) => {
-  res.json(PORT);
   res.json(req.users);
 });
 

@@ -12,14 +12,11 @@ import {
   CircularProgress,
   Box,
   Typography,
-  Pagination,
 } from "@mui/material";
 import { fetchUsers, deleteUser, updateUser } from "src/store/slices/userSlice";
 import { RootState, AppDispatch } from "src/store";
 import { User } from "src/types/user";
 import { UserAction, UserDetails, UserSubmission, UserDelete } from ".";
-
-const USERS_PER_PAGE = 7;
 
 const UserList: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -31,7 +28,6 @@ const UserList: React.FC = () => {
   const [isActionModalOpen, setIsActionModalOpen] = useState(false);
   const [isDetailsModalOpen, setIsDetailsModalOpen] = useState(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
-  const [page, setPage] = useState(1);
 
   useEffect(() => {
     dispatch(fetchUsers());
@@ -80,13 +76,6 @@ const UserList: React.FC = () => {
     handleCloseActionModal();
   };
 
-  const handleChangePage = (
-    event: React.ChangeEvent<unknown>,
-    value: number
-  ) => {
-    setPage(value);
-  };
-
   if (loading) {
     return (
       <Box
@@ -105,11 +94,6 @@ const UserList: React.FC = () => {
   if (error) {
     return <div>Error: {error}</div>;
   }
-
-  const paginatedUsers = users.slice(
-    (page - 1) * USERS_PER_PAGE,
-    page * USERS_PER_PAGE
-  );
 
   return (
     <Box>
@@ -132,7 +116,7 @@ const UserList: React.FC = () => {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {paginatedUsers.map((user: User) => (
+                {users.map((user: User) => (
                   <TableRow key={user.id}>
                     <TableCell>{user.name}</TableCell>
                     <TableCell>{user.email}</TableCell>
@@ -174,14 +158,6 @@ const UserList: React.FC = () => {
       )}
       <Box marginY={5}>
         <UserSubmission />
-      </Box>
-      <Box display="flex" justifyContent="center">
-        <Pagination
-          count={Math.ceil(users.length / USERS_PER_PAGE)}
-          page={page}
-          onChange={handleChangePage}
-          color="primary"
-        />
       </Box>
       <UserAction
         open={isActionModalOpen}
