@@ -6,7 +6,7 @@ services:
       args:
         - REACT_APP_API_BASE_URL=${REACT_APP_API_BASE_URL}
     ports:
-      - "3001:3001"
+      - "30001:30001"
     environment:
       - REACT_APP_API_BASE_URL=${REACT_APP_API_BASE_URL}
     networks:
@@ -17,7 +17,7 @@ services:
       context: ./
       dockerfile: Dockerfile.backend
     ports:
-      - "3002:3002"
+      - "30002:30002"
     networks:
       - obs_solution_network
     volumes:

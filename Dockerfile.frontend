@@ -15,5 +15,5 @@ FROM node:20-slim
 RUN npm install -g serve
 COPY --from=builder /app/build /app
 WORKDIR /app
-EXPOSE 3001
-CMD ["serve", "-s", ".", "-l", "3001"]
+EXPOSE 30001
+CMD ["serve", "-s", ".", "-l", "30001"]
