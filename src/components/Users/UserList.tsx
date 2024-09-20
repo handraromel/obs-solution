@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import React, { useState, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import {
   Table,
   TableBody,
@@ -12,17 +12,15 @@ import {
   CircularProgress,
   Box,
   Typography,
-} from "@mui/material";
-import { fetchUsers, deleteUser, updateUser } from "src/store/slices/userSlice";
-import { RootState, AppDispatch } from "src/store";
-import { User } from "src/types/user";
-import { UserAction, UserDetails, UserSubmission, UserDelete } from ".";
+} from '@mui/material';
+import { fetchUsers, deleteUser, updateUser } from 'src/store/slices/userSlice';
+import { RootState, AppDispatch } from 'src/store';
+import { User } from 'src/types/user';
+import { UserAction, UserDetails, UserSubmission, UserDelete } from '.';
 
 const UserList: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
-  const { users, loading, error, lastUpdated } = useSelector(
-    (state: RootState) => state.users
-  );
+  const { users, loading, error, lastUpdated } = useSelector((state: RootState) => state.users);
 
   const [selectedUser, setSelectedUser] = useState<User | null>(null);
   const [isActionModalOpen, setIsActionModalOpen] = useState(false);
@@ -80,10 +78,10 @@ const UserList: React.FC = () => {
     return (
       <Box
         sx={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          minHeight: "90vh",
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          minHeight: '90vh',
         }}
       >
         <CircularProgress />
@@ -98,7 +96,7 @@ const UserList: React.FC = () => {
   return (
     <Box>
       {users.length === 0 ? (
-        <Typography variant="h6" align="center" style={{ padding: "16px" }}>
+        <Typography variant='h6' align='center' style={{ padding: '16px' }}>
           No users found.
         </Typography>
       ) : (
@@ -125,25 +123,25 @@ const UserList: React.FC = () => {
                     <TableCell>{user.website}</TableCell>
                     <TableCell>
                       <Button
-                        variant="outlined"
-                        color="primary"
-                        sx={{ m: 1 }}
+                        variant='outlined'
+                        color='primary'
+                        sx={{ m: 0.5 }}
                         onClick={() => handleDetails(user)}
                       >
                         Details
                       </Button>
                       <Button
-                        variant="outlined"
-                        color="secondary"
-                        sx={{ m: 1 }}
+                        variant='outlined'
+                        color='secondary'
+                        sx={{ m: 0.5 }}
                         onClick={() => handleEdit(user)}
                       >
                         Edit
                       </Button>
                       <Button
-                        variant="outlined"
-                        color="error"
-                        sx={{ m: 1 }}
+                        variant='outlined'
+                        color='error'
+                        sx={{ m: 0.5 }}
                         onClick={() => handleDeletePrompt(user)}
                       >
                         Delete

@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 import {
   Dialog,
   DialogTitle,
@@ -7,8 +7,8 @@ import {
   IconButton,
   styled,
   Typography,
-} from "@mui/material";
-import CloseIcon from "@mui/icons-material/Close";
+} from '@mui/material';
+import CloseIcon from '@mui/icons-material/Close';
 
 interface ModalProps {
   open: boolean;
@@ -19,32 +19,24 @@ interface ModalProps {
 }
 
 const AnimatedCloseButton = styled(IconButton)(({ theme }) => ({
-  position: "absolute",
+  position: 'absolute',
   right: 8,
   top: 8,
   color: theme.palette.grey[500],
-  transition: "transform 0.2s ease-in-out",
-  "&:hover": {
-    transform: "rotate(90deg)",
+  transition: 'transform 0.2s ease-in-out',
+  '&:hover': {
+    transform: 'rotate(90deg)',
   },
 }));
 
-const Modal: React.FC<ModalProps> = ({
-  open,
-  onClose,
-  title,
-  children,
-  actions,
-}) => {
+const Modal: React.FC<ModalProps> = ({ open, onClose, title, children, actions }) => {
   return (
-    <Dialog open={open} onClose={onClose} maxWidth="md" fullWidth>
+    <Dialog open={open} onClose={onClose} maxWidth='md' fullWidth>
       <DialogTitle>
-        <Typography
-          sx={{ borderBottom: "1px solid #cfd8dc", fontSize: "34px" }}
-        >
+        <Typography sx={{ borderBottom: '1px solid #cfd8dc', fontSize: '34px' }}>
           {title}
         </Typography>
-        <AnimatedCloseButton aria-label="close" onClick={onClose}>
+        <AnimatedCloseButton aria-label='close' onClick={onClose}>
           <CloseIcon />
         </AnimatedCloseButton>
       </DialogTitle>

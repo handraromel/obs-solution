@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from "react";
-import { useDispatch } from "react-redux";
-import { TextField, Button, Typography, Box } from "@mui/material";
-import Grid from "@mui/material/Grid2";
-import { addUser, updateUser } from "src/store/slices/userSlice";
-import { User } from "src/types/user";
-import { AppDispatch } from "src/store";
+import React, { useState, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { TextField, Button, Typography, Box } from '@mui/material';
+import Grid from '@mui/material/Grid2';
+import { addUser, updateUser } from 'src/store/slices/userSlice';
+import { User } from 'src/types/user';
+import { AppDispatch } from 'src/store';
 
 interface UserFormProps {
   initialData?: User;
@@ -16,25 +16,25 @@ const UserForm: React.FC<UserFormProps> = ({ initialData, onSubmit }) => {
 
   const [formData, setFormData] = useState<User>({
     id: 0,
-    name: "",
-    username: "",
-    email: "",
+    name: '',
+    username: '',
+    email: '',
     address: {
-      street: "",
-      suite: "",
-      city: "",
-      zipcode: "",
+      street: '',
+      suite: '',
+      city: '',
+      zipcode: '',
       geo: {
-        lat: "",
-        lng: "",
+        lat: '',
+        lng: '',
       },
     },
-    phone: "",
-    website: "",
+    phone: '',
+    website: '',
     company: {
-      name: "",
-      catchPhrase: "",
-      bs: "",
+      name: '',
+      catchPhrase: '',
+      bs: '',
     },
   });
 
@@ -63,22 +63,19 @@ const UserForm: React.FC<UserFormProps> = ({ initialData, onSubmit }) => {
     }));
   };
 
-  const handleNumericChange = (
-    e: React.ChangeEvent<HTMLInputElement>,
-    allowDecimal = false
-  ) => {
+  const handleNumericChange = (e: React.ChangeEvent<HTMLInputElement>, allowDecimal = false) => {
     const { name, value } = e.target;
 
     const regex = allowDecimal ? /^[+-]?[0-9]*[.,]?[0-9]*$/ : /^[+-]?[0-9]*$/;
 
     if (regex.test(value)) {
       setFormData((prevData) => {
-        if (name === "phone") {
+        if (name === 'phone') {
           return {
             ...prevData,
             [name]: value,
           };
-        } else if (name === "zipcode") {
+        } else if (name === 'zipcode') {
           return {
             ...prevData,
             address: {
@@ -139,25 +136,25 @@ const UserForm: React.FC<UserFormProps> = ({ initialData, onSubmit }) => {
     if (!initialData) {
       setFormData({
         id: 0,
-        name: "",
-        username: "",
-        email: "",
+        name: '',
+        username: '',
+        email: '',
         address: {
-          street: "",
-          suite: "",
-          city: "",
-          zipcode: "",
+          street: '',
+          suite: '',
+          city: '',
+          zipcode: '',
           geo: {
-            lat: "",
-            lng: "",
+            lat: '',
+            lng: '',
           },
         },
-        phone: "",
-        website: "",
+        phone: '',
+        website: '',
         company: {
-          name: "",
-          catchPhrase: "",
-          bs: "",
+          name: '',
+          catchPhrase: '',
+          bs: '',
         },
       });
     }
@@ -169,8 +166,8 @@ const UserForm: React.FC<UserFormProps> = ({ initialData, onSubmit }) => {
         <Grid size={{ xs: 12, sm: 6 }}>
           <TextField
             fullWidth
-            label="Name"
-            name="name"
+            label='Name'
+            name='name'
             value={formData.name}
             onChange={handleChange}
             required
@@ -179,8 +176,8 @@ const UserForm: React.FC<UserFormProps> = ({ initialData, onSubmit }) => {
         <Grid size={{ xs: 12, sm: 6 }}>
           <TextField
             fullWidth
-            label="Username"
-            name="username"
+            label='Username'
+            name='username'
             value={formData.username}
             onChange={handleChange}
             required
@@ -189,9 +186,9 @@ const UserForm: React.FC<UserFormProps> = ({ initialData, onSubmit }) => {
         <Grid size={{ xs: 12, sm: 6 }}>
           <TextField
             fullWidth
-            label="Email"
-            name="email"
-            type="email"
+            label='Email'
+            name='email'
+            type='email'
             value={formData.email}
             onChange={handleChange}
             required
@@ -200,8 +197,8 @@ const UserForm: React.FC<UserFormProps> = ({ initialData, onSubmit }) => {
         <Grid size={{ xs: 12, sm: 6 }}>
           <TextField
             fullWidth
-            label="Phone"
-            name="phone"
+            label='Phone'
+            name='phone'
             value={formData.phone}
             onChange={handleNumericChange}
           />
@@ -209,20 +206,20 @@ const UserForm: React.FC<UserFormProps> = ({ initialData, onSubmit }) => {
         <Grid size={{ xs: 12, sm: 6 }}>
           <TextField
             fullWidth
-            label="Website"
-            name="website"
+            label='Website'
+            name='website'
             value={formData.website}
             onChange={handleChange}
           />
         </Grid>
         <Grid size={{ xs: 12 }}>
-          <Typography variant="subtitle1">Address</Typography>
+          <Typography variant='subtitle1'>Address</Typography>
         </Grid>
         <Grid size={{ xs: 12, sm: 6 }}>
           <TextField
             fullWidth
-            label="Street"
-            name="street"
+            label='Street'
+            name='street'
             value={formData.address.street}
             onChange={handleAddressChange}
           />
@@ -230,8 +227,8 @@ const UserForm: React.FC<UserFormProps> = ({ initialData, onSubmit }) => {
         <Grid size={{ xs: 12, sm: 6 }}>
           <TextField
             fullWidth
-            label="Suite"
-            name="suite"
+            label='Suite'
+            name='suite'
             value={formData.address.suite}
             onChange={handleAddressChange}
           />
@@ -239,8 +236,8 @@ const UserForm: React.FC<UserFormProps> = ({ initialData, onSubmit }) => {
         <Grid size={{ xs: 12, sm: 6 }}>
           <TextField
             fullWidth
-            label="City"
-            name="city"
+            label='City'
+            name='city'
             value={formData.address.city}
             onChange={handleAddressChange}
           />
@@ -248,8 +245,8 @@ const UserForm: React.FC<UserFormProps> = ({ initialData, onSubmit }) => {
         <Grid size={{ xs: 12, sm: 6 }}>
           <TextField
             fullWidth
-            label="Zipcode"
-            name="zipcode"
+            label='Zipcode'
+            name='zipcode'
             value={formData.address.zipcode}
             onChange={handleNumericChange}
           />
@@ -257,8 +254,8 @@ const UserForm: React.FC<UserFormProps> = ({ initialData, onSubmit }) => {
         <Grid size={{ xs: 12, sm: 6 }}>
           <TextField
             fullWidth
-            label="Latitude"
-            name="lat"
+            label='Latitude'
+            name='lat'
             value={formData.address.geo.lat}
             onChange={handleGeoChange}
           />
@@ -266,20 +263,20 @@ const UserForm: React.FC<UserFormProps> = ({ initialData, onSubmit }) => {
         <Grid size={{ xs: 12, sm: 6 }}>
           <TextField
             fullWidth
-            label="Longitude"
-            name="lng"
+            label='Longitude'
+            name='lng'
             value={formData.address.geo.lng}
             onChange={handleGeoChange}
           />
         </Grid>
         <Grid size={{ xs: 12 }}>
-          <Typography variant="subtitle1">Company</Typography>
+          <Typography variant='subtitle1'>Company</Typography>
         </Grid>
         <Grid size={{ xs: 12, sm: 6 }}>
           <TextField
             fullWidth
-            label="Company Name"
-            name="name"
+            label='Company Name'
+            name='name'
             value={formData.company.name}
             onChange={handleCompanyChange}
           />
@@ -287,8 +284,8 @@ const UserForm: React.FC<UserFormProps> = ({ initialData, onSubmit }) => {
         <Grid size={{ xs: 12, sm: 6 }}>
           <TextField
             fullWidth
-            label="Catch Phrase"
-            name="catchPhrase"
+            label='Catch Phrase'
+            name='catchPhrase'
             value={formData.company.catchPhrase}
             onChange={handleCompanyChange}
           />
@@ -296,16 +293,16 @@ const UserForm: React.FC<UserFormProps> = ({ initialData, onSubmit }) => {
         <Grid size={{ xs: 12 }}>
           <TextField
             fullWidth
-            label="BS"
-            name="bs"
+            label='BS'
+            name='bs'
             value={formData.company.bs}
             onChange={handleCompanyChange}
           />
         </Grid>
         <Grid size={{ xs: 12 }}>
-          <Box mt={2} display="flex" justifyContent="flex-end">
-            <Button type="submit" variant="contained" color="primary">
-              {initialData ? "Update User" : "Add User"}
+          <Box mt={2} display='flex' justifyContent='flex-end'>
+            <Button type='submit' variant='contained' color='primary'>
+              {initialData ? 'Update User' : 'Add User'}
             </Button>
           </Box>
         </Grid>

@@ -1,8 +1,8 @@
-import React from "react";
-import { Typography } from "@mui/material";
-import Grid from "@mui/material/Grid2";
-import { Modal } from "../Common";
-import { User } from "src/types/user";
+import React, { useState, useEffect } from 'react';
+import { Typography, Avatar, Box } from '@mui/material';
+import Grid from '@mui/material/Grid2';
+import { Modal } from '../Common';
+import { User } from 'src/types/user';
 
 interface UserDetailsModalProps {
   open: boolean;
@@ -10,18 +10,26 @@ interface UserDetailsModalProps {
   user: User | null;
 }
 
-const UserDetails: React.FC<UserDetailsModalProps> = ({
-  open,
-  onClose,
-  user,
-}) => {
+const UserDetails: React.FC<UserDetailsModalProps> = ({ open, onClose, user }) => {
+  const [randomImageUrl, setRandomImageUrl] = useState('');
+  useEffect(() => {
+    if (user) {
+      setRandomImageUrl(`https://picsum.photos/200?random=${Date.now()}`);
+    }
+  }, [user]);
+
   if (!user) return null;
 
   return (
-    <Modal open={open} onClose={onClose} title="User Details">
+    <Modal open={open} onClose={onClose} title='User Details'>
       <Grid container spacing={2}>
+        <Grid size={{ xs: 12 }} container justifyContent='center'>
+          <Box mb={2}>
+            <Avatar src={randomImageUrl} alt={user.name} sx={{ width: 150, height: 150 }} />
+          </Box>
+        </Grid>
         <Grid size={{ xs: 12 }}>
-          <Typography variant="h6">{user.name}</Typography>
+          <Typography variant='h6'>{user.name}</Typography>
         </Grid>
         <Grid size={{ xs: 12, sm: 6 }}>
           <Typography>
@@ -44,7 +52,7 @@ const UserDetails: React.FC<UserDetailsModalProps> = ({
           </Typography>
         </Grid>
         <Grid size={{ xs: 12 }}>
-          <Typography variant="h6">Address</Typography>
+          <Typography variant='h6'>Address</Typography>
         </Grid>
         <Grid size={{ xs: 12, sm: 6 }}>
           <Typography>
@@ -77,7 +85,7 @@ const UserDetails: React.FC<UserDetailsModalProps> = ({
           </Typography>
         </Grid>
         <Grid size={{ xs: 12 }}>
-          <Typography variant="h6">Company</Typography>
+          <Typography variant='h6'>Company</Typography>
         </Grid>
         <Grid size={{ xs: 12 }}>
           <Typography>

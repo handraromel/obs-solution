@@ -1,6 +1,6 @@
-import { createSlice, PayloadAction, createAsyncThunk } from "@reduxjs/toolkit";
-import { User } from "src/types/user";
-import * as userService from "src/services/userService";
+import { createSlice, PayloadAction, createAsyncThunk } from '@reduxjs/toolkit';
+import { User } from 'src/types/user';
+import * as userService from 'src/services/userService';
 
 interface UserState {
   users: User[];
@@ -16,32 +16,26 @@ const initialState: UserState = {
   lastUpdated: Date.now(),
 };
 
-export const fetchUsers = createAsyncThunk("users/fetchUsers", async () => {
+export const fetchUsers = createAsyncThunk('users/fetchUsers', async () => {
   return await userService.fetchUsers();
 });
 
-export const addUser = createAsyncThunk("users/addUser", async (user: User) => {
+export const addUser = createAsyncThunk('users/addUser', async (user: User) => {
   const newUser = await userService.addUser(user);
   return newUser;
 });
 
-export const updateUser = createAsyncThunk(
-  "users/updateUser",
-  async (user: User) => {
-    return await userService.updateUser(user);
-  }
-);
+export const updateUser = createAsyncThunk('users/updateUser', async (user: User) => {
+  return await userService.updateUser(user);
+});
 
-export const deleteUser = createAsyncThunk(
-  "users/deleteUser",
-  async (id: number) => {
-    await userService.deleteUser(id);
-    return id;
-  }
-);
+export const deleteUser = createAsyncThunk('users/deleteUser', async (id: number) => {
+  await userService.deleteUser(id);
+  return id;
+});
 
 const userSlice = createSlice({
-  name: "users",
+  name: 'users',
   initialState,
   reducers: {
     setLoading: (state, action: PayloadAction<boolean>) => {
@@ -71,9 +65,7 @@ const userSlice = createSlice({
         }
       })
       .addCase(updateUser.fulfilled, (state, action) => {
-        const index = state.users.findIndex(
-          (user) => user.id === action.payload.id
-        );
+        const index = state.users.findIndex((user) => user.id === action.payload.id);
         if (index !== -1) {
           state.users[index] = action.payload;
           state.lastUpdated = Date.now(); // Add this line

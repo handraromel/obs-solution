@@ -1,8 +1,7 @@
-import React from "react";
-import { Button } from "@mui/material";
-import Modal from "src/components/Common/Modal";
-import UserForm from "./UserForm";
-import { User } from "src/types/user";
+import React from 'react';
+import Modal from 'src/components/Common/Modal';
+import UserForm from './UserForm';
+import { User } from 'src/types/user';
 
 interface UserActionModalProps {
   open: boolean;
@@ -11,18 +10,9 @@ interface UserActionModalProps {
   onSubmit: (user: User) => void;
 }
 
-const UserActionModal: React.FC<UserActionModalProps> = ({
-  open,
-  onClose,
-  user,
-  onSubmit,
-}) => {
+const UserActionModal: React.FC<UserActionModalProps> = ({ open, onClose, user, onSubmit }) => {
   return (
-    <Modal
-      open={open}
-      onClose={onClose}
-      title={user ? "Edit User" : "Add User"}
-    >
+    <Modal open={open} onClose={onClose} title={user ? 'Edit User' : 'Add User'}>
       <UserForm
         initialData={user || undefined}
         onSubmit={(updatedUser) => {
