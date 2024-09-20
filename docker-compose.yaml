@@ -2,11 +2,26 @@ services:
   frontend:
     build:
       context: ./
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.frontend
+      args:
+        - REACT_APP_API_BASE_URL=${REACT_APP_API_BASE_URL}
     ports:
       - "3001:3001"
+    environment:
+      - REACT_APP_API_BASE_URL=${REACT_APP_API_BASE_URL}
     networks:
       - obs_solution_network
+
+  backend:
+    build:
+      context: ./
+      dockerfile: Dockerfile.backend
+    ports:
+      - "3002:3002"
+    networks:
+      - obs_solution_network
+    volumes:
+      - ./public:/app/public
 
 networks:
   obs_solution_network:
