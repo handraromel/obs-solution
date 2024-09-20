@@ -66,6 +66,16 @@ const UserDetails: React.FC<UserDetailsModalProps> = ({
             <strong>Zipcode:</strong> {user.address.zipcode}
           </Typography>
         </Grid>
+        <Grid size={{ xs: 12, sm: 6 }}>
+          <Typography>
+            <strong>Latitude:</strong> {user.address.geo.lat}
+          </Typography>
+        </Grid>
+        <Grid size={{ xs: 12, sm: 6 }}>
+          <Typography>
+            <strong>Longitude:</strong> {user.address.geo.lng}
+          </Typography>
+        </Grid>
         <Grid size={{ xs: 12 }}>
           <Typography variant="h6">Company</Typography>
         </Grid>

@@ -19,7 +19,8 @@ export const fetchUsers = createAsyncThunk("users/fetchUsers", async () => {
 });
 
 export const addUser = createAsyncThunk("users/addUser", async (user: User) => {
-  return await userService.addUser(user);
+  const newUser = await userService.addUser(user);
+  return newUser;
 });
 
 export const updateUser = createAsyncThunk(
@@ -61,8 +62,15 @@ const userSlice = createSlice({
         state.loading = false;
         state.error = action.error.message || null;
       })
-      .addCase(addUser.fulfilled, (state, action) => {
-        state.users.push(action.payload);
+      .addCase(addUser.fulfilled, (state, action: PayloadAction<User>) => {
+        const existingUserIndex = state.users.findIndex(
+          (user) => user.id === action.payload.id
+        );
+        if (existingUserIndex !== -1) {
+          state.users[existingUserIndex] = action.payload;
+        } else {
+          state.users.push(action.payload);
+        }
       })
       .addCase(updateUser.fulfilled, (state, action) => {
         const index = state.users.findIndex(
