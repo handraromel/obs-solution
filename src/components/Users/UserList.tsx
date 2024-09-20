@@ -132,7 +132,7 @@ const UserList: React.FC = () => {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {paginatedUsers.map((user) => (
+                {paginatedUsers.map((user: User) => (
                   <TableRow key={user.id}>
                     <TableCell>{user.name}</TableCell>
                     <TableCell>{user.email}</TableCell>
