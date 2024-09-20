@@ -10,7 +10,6 @@ export default [
   ...tseslint.configs.recommended,
   {
     files: ['**/*.{js,jsx,ts,tsx}'],
-    ignores: ['**/server.js', '**/server.cjs'],
     plugins: {
       react: reactPlugin,
       'react-hooks': reactHooksPlugin,

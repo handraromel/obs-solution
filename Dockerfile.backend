@@ -5,4 +5,4 @@ RUN npm install -g pnpm
 RUN pnpm install --frozen-lockfile
 COPY . .
 EXPOSE 30002
-CMD ["node", "server.js"]
+CMD ["node", "server.cjs"]
